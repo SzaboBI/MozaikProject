@@ -3,17 +3,16 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-
-class User extends Authenticatable
+class Admin extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-    protected $guard = 'web';
+    protected $guard = 'admin';
 
     /**
      * The attributes that are mass assignable.
@@ -40,8 +39,4 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
-    public function rounds(): BelongsToMany{
-        return $this->belongsToMany(Rounds::class, 'versenyzoks','u_email','r_id')->withTimestamps();
-    }
 }
