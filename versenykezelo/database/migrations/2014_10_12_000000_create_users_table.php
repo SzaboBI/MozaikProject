@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('road');
             $table->integer('houseNumber');
             $table->string('telephone');
+            $table->boolean('admin');
             $table->rememberToken();
             $table->timestamps();
             $table->primary('email');

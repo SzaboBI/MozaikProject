@@ -47,6 +47,11 @@
                     </ul>
                 </div>
             @endif
+            <label for="userType">Felhasználó típusa:</label>
+            <select name="userType" id="userType">
+                <option value="basic">Felhasználó</option>
+                <option value="admin">Admin</option>
+            </select><br>
             <label for="email">E-mail cím:</label>
             <input type="email" name="email" id="email"><br>
             <label for="name">Teljes név:</label>

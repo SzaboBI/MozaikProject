@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Rules\Password;
 
 use App\Models\User;
+use App\Models\Admin;
 use Closure;
 use Hash;
 
@@ -30,6 +31,11 @@ class AuthController extends Controller
     public function register(Request $request){
         $passwdAgain = $request-> passwdAgain;
         $validator = Validator::make($request->all(),[
+            'userType' => [function (string $attribute, mixed $value, Closure $fail){
+                if ($value != 'basic' && $value != 'admin') {
+                    $fail("Érvénytelen felhasználó típus!");
+                }
+            } ],
             'email' => ['required', 'email', 'unique:users'],
             'name' => ['required'],
             'passwd' => ['required', 'min:8', 
@@ -49,7 +55,7 @@ class AuthController extends Controller
             'email.required' => 'Az e-mail cím mező ki kell tölteni!',
             'email.email' => 'Nem megfelelő e-mail cím formátumot adott meg!',
             'email.unique' => 'Az e-mail címmel már regisztráltak!',
-            'name.require' => 'A teljes név mezőt meg kell adni!',
+            'name.required' => 'A teljes név mezőt meg kell adni!',
             'passwd.required' => 'A jelszó mezőt meg kell adni!',
             'passwd.regex' => 'A jelszónak tartalmaznia kell minimum egy nagybetűt, egy kisbetűt, egy számjegyet és 1 speciális karaktert (_.:;)!',
             'passwd.min' => 'A jelszónak legalább 8 karakter hosszúnak kell lennie!',
@@ -72,6 +78,13 @@ class AuthController extends Controller
         $user ->road = $request-> street;
         $user ->houseNumber = $request-> house;
         $user ->telephone = $request-> mobil;
+        if ($request-> userType == 'basic') {
+            $user ->admin = 0;
+        }
+        else if($request-> userType == 'admin'){
+            $user ->admin = 1;
+        }
         $result = $user-> save();
+        
     }
 }

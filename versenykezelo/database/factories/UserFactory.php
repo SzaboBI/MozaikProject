@@ -38,6 +38,7 @@ class UserFactory extends Factory
             'road' => $road,
             'houseNumber' => rand(1,200),
             'telephone' => '+36' . strval(rand(20,99)) . strval(rand(1000000,9999999)),
+            'admin' => rand(0,1),
             'remember_token' => Str::random(10),
         ];
     }
