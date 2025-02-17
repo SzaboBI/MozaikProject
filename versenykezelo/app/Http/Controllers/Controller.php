@@ -15,4 +15,8 @@ class Controller extends BaseController
     public function show(){
         return view('welcome');
     }
+
+    public function showMain(){
+        return view('welcome');
+    }
 }

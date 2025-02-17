@@ -21,11 +21,11 @@ class VersenyzokFactory extends Factory
     public function definition()
     {
 
-        $user = User::inRandomOrder()->first();
+        $user_emails = User::all()->where('admin','=',0)->pluck('email')->toArray();
         $round = Rounds::inRandomOrder()->first();
 
         return [
-            'u_email' => $user->email,
+            'u_email' => $this->faker->randomElement($this->user_emails),
             'r_id' => $round->id,
         ];
     }

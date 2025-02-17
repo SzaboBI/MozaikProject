@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
                 ->has(\App\Models\Competitions::factory(10))
                 ->create();
         foreach (\App\Models\Rounds::all() as $rounds){
-            $users = \App\Models\User::inRandomOrder()->take(rand(1,3))->pluck('email');
+            $users = \App\Models\User::where('admin',0)->take(rand(1,3))->pluck('email');
             $rounds->users()->attach($users);
         }
     }
