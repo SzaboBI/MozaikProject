@@ -17,7 +17,7 @@ class InverseAuthCheck
     public function handle(Request $request, Closure $next)
     {
         if (Session()->has('loginEmail')) {
-            return redirect()->route('welcome');
+            return redirect()->route('competitions');
         }
         return $next($request);
     }

@@ -110,6 +110,6 @@ class AuthController extends Controller
             $user ->admin = 1;
         }
         $result = $user-> save();
-        return redirect()->route('welcome');
+        return redirect()->route('competitions');
     }
 }

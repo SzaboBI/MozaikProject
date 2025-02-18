@@ -16,7 +16,7 @@ class Rounds extends Model
     }
 
     public function users(): BelongsToMany {
-        return $this->belongsToMany(User::class, 'versenyzoks', 'r_id','u_email')->withTimestamps();
+        return $this->belongsToMany(User::class, 'versenyzoks', 'r_id','u_email','id','email')->withTimestamps();
     }
 
     use HasFactory;

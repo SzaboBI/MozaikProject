@@ -19,8 +19,8 @@ class CreateVersenyzoksTable extends Migration
             $table->timestamps();
         });
         Schema::table('versenyzoks', function (Blueprint $table) {
-            $table->foreign('u_email')->references('email')->on('users');
-            $table->foreign('r_id')->references('id')->on('rounds');
+            $table->foreign('u_email')->references('email')->on('users')->onDelete('cascade');
+            $table->foreign('r_id')->references('id')->on('rounds')->onDelete('cascade');
         });
     }
 

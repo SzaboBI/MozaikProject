@@ -22,8 +22,8 @@ class CreateRoundsTable extends Migration
             
         });
         Schema::table('rounds', function (Blueprint $table) {
-            $table->foreign('c_name')->references('name')->on('competitions');
-            $table->foreign('c_year')->references('year')->on('competitions');
+            $table->foreign('c_name')->references('name')->on('competitions')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('c_year')->references('year')->on('competitions')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
