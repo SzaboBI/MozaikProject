@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompetitionController;
+use App\Http\Controllers\RoundController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,12 @@ Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::get('/competitions', [CompetitionController::class,'index'])->middleware('loggedInCheck')->name('competitions');
 Route::get('/competition/create', [CompetitionController::class, 'create'])->middleware('adminLogin');
 Route::post('/competition/store', [CompetitionController::class, 'store'])->middleware('adminLogin');
-Route::get('/competition/show/{name}/{year}', [CompetitionController::class,'show'])->middleware('loggedInCheck');
+Route::get('/competition/show/{name}/{year}', [CompetitionController::class,'show'])->middleware('loggedInCheck')->name('showCompetition');
 Route::get('/competition/delete/{name}/{year}',[CompetitionController::class,'destroy'])->middleware('loggedInCheck')->middleware('isAdmin');
 Route::get('/competition/edit/{name}/{year}', [CompetitionController::class,'edit'])->middleware('loggedInCheck')->middleware('isAdmin')->name('editcompetition');
 Route::post('/competition/update/{name}/{year}', [CompetitionController::class,'update'])->middleware('loggedInCheck')->middleware('isAdmin');
+
+Route::post('/rounds/store/{c_name}/{c_year}', [RoundController::class, 'store'])->middleware('adminLogin');
+Route::get('/rounds/delete/{id}', [RoundController::class, 'destroy']);
 
 

@@ -44,22 +44,42 @@
                     </div>
                 </div>
             </div>
-            <table>
-                <thead>
-                    <tr>
-                        <th id="roundNumber">Forduló sorszáma</th>
-                        <th id="details">Részletek</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach($rounds as $round)
+            <form action="/rounds/store/{{ $competition->name }}/{{ $competition->year }}" method="post">
+                @csrf
+                <div>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                <table>
+                    <thead>
                         <tr>
-                            <td headers="roundNumber">{{ $round->roundNumber }}</td>
-                            <td headers="details"><a href="/edit/{{ $round->id }}"></a></td>
+                            <th id="roundNumber">Forduló sorszáma</th>
+                            <th id="details">Részletek</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach($rounds as $round)
+                            <tr>
+                                <td headers="roundNumber">{{ $round->roundNumber }}</td>
+                                <td headers="details">
+                                    <a href="/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
+                                    <a href="/rounds/delete/{{ $round->id }}">Törlés</a>
+                                </td>
+                            </tr>
+                        @endforeach
+                        <tr>
+                            <td headers="roundNumber" colspan="2">
+                                <label for="rNumber">Forduló sorszáma:</label>
+                                <input type="number" name="rNumber" id="rNumber" min="1">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <input type="submit" value="Hozzáadás">
+            </form>
         </div>
     </body>
 </html>
