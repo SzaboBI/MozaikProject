@@ -17,13 +17,17 @@ use App\Http\Controllers\CompetitionController;
 */
 
 Route::get('/', [Controller::class,'index'])->middleware('notLoggedInCheck')->name('welcome');
-//Route::get('/login', [AuthController::class, 'showLogin']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'showRegister'])->middleware('notLoggedInCheck');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 
 Route::get('/competitions', [CompetitionController::class,'index'])->middleware('loggedInCheck')->name('competitions');
+Route::get('/competition/create', [CompetitionController::class, 'create'])->middleware('adminLogin');
+Route::post('/competition/store', [CompetitionController::class, 'store'])->middleware('adminLogin');
 Route::get('/competition/show/{name}/{year}', [CompetitionController::class,'show'])->middleware('loggedInCheck');
+Route::get('/competition/delete/{name}/{year}',[CompetitionController::class,'destroy'])->middleware('loggedInCheck')->middleware('isAdmin');
+Route::get('/competition/edit/{name}/{year}', [CompetitionController::class,'edit'])->middleware('loggedInCheck')->middleware('isAdmin')->name('editcompetition');
+Route::post('/competition/update/{name}/{year}', [CompetitionController::class,'update'])->middleware('loggedInCheck')->middleware('isAdmin');
 
 

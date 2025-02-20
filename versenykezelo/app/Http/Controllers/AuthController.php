@@ -8,8 +8,8 @@ use Illuminate\Routing\Redirector;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 
+
 use App\Models\User;
-use App\Models\Admin;
 use Closure;
 use Hash;
 use Session;

@@ -27,9 +27,13 @@
                     @endif
                 </div>
             @endif
-            <a href="/edit/{{ $competition->name }}/{{ $competition->year }}">Módosítás</a>
+            
             <div>
                 <div class="d-table full-width">
+                    @if($isAdmin == 1)
+                        <div class=""><a href="/competition/edit/{{ $competition->name }}/{{ $competition->year }}">Módosítás</a></div>
+                        <div class=""><a href="/competition/delete/{{ $competition->name }}/{{ $competition->year }}">Törlés</a></div>
+                    @endif
                     <div class="d-table-row">
                         <div class="d-table-cell font-weight-bold">Verseny neve:</div>
                         <div class="d-table-cell">{{ $competition->name }}</div>

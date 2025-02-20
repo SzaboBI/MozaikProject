@@ -17,7 +17,6 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @if(Session()->has('loginEmail'))
@@ -65,12 +64,20 @@
                         <tr>
                             <td headers="competition_name">{{ $competition->name }}</td>
                             <td headers="competition_year">{{ $competition->year }}</td>
-                            <td headers="details"><a href="/competition/show/{{ $competition->name }}/{{ $competition->year }}">Megjelenít</a></td>
+                            <td headers="details">
+                                <a href="/competition/show/{{ $competition->name }}/{{ $competition->year }}">Megjelenít</a>
+                                @if($isAdmin)
+                                    <a href="/competition/edit/{{ $competition->name }}/{{ $competition->year }}">Módosítás</a>
+                                    <a href="/competition/delete/{{ $competition->name }}/{{ $competition->year }}">Törlés</a>
+                                @endif
+                            </td>
                         </tr>
                     @endforeach
                 </tbody>
             </table>
-            @endif
-        </div>
+            <div class="floating-bottom-right">
+                <a class="btn btn-primary" href="/competition/create">Új verseny hozzáadása</a>
+            </div>
+        @endif
     </body>
 </html>

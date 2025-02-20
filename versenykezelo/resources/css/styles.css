@@ -3,5 +3,12 @@
 }
 
 .full-width{
-    width: 100%;
+    width: 100% !important;
+}
+
+.floating-bottom-right{
+    display: block !important;
+    position: absolute !important;
+    bottom: 0 !important;
+    right: 0 !important;
 }

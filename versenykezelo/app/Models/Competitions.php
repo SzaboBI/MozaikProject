@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Competitions extends Model
 {
+    
     protected $fillable = ['name','year','pointsForGoodAnswer','pointsForBadAnswer','poinstForEmptyAnswer'];
     
     public function rounds(): HasMany {

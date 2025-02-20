@@ -44,6 +44,10 @@ class Kernel extends HttpKernel
             'throttle:api',
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
+        'adminLogin' => [
+            \App\Http\Middleware\AuthCheck::class,
+            \App\Http\Middleware\EnsureIsAdmin::class,
+        ]
     ];
 
     /**
@@ -56,6 +60,7 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         'loggedInCheck' => \App\Http\Middleware\AuthCheck::class,
         'notLoggedInCheck' => \App\Http\Middleware\InverseAuthCheck::class,
+        'isAdmin' => \App\Http\Middleware\EnsureIsAdmin::class,
         'auth' => \App\Http\Middleware\Authenticate::class,
         'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
         'cache.headers' => \Illuminate\Http\Middleware\SetCacheHeaders::class,
