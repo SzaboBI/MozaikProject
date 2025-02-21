@@ -65,7 +65,7 @@
                             <tr>
                                 <td headers="roundNumber">{{ $round->roundNumber }}</td>
                                 <td headers="details">
-                                    <a href="/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
+                                    <a href="/round/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
                                     <a href="/rounds/delete/{{ $round->id }}">Törlés</a>
                                 </td>
                             </tr>
@@ -78,7 +78,7 @@
                         </tr>
                     </tbody>
                 </table>
-                <input type="submit" value="Hozzáadás">
+                <input type="submit" value="Hozzáadás/ Mentés">
             </form>
         </div>
     </body>

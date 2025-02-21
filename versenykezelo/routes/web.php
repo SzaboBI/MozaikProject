@@ -31,7 +31,10 @@ Route::get('/competition/delete/{name}/{year}',[CompetitionController::class,'de
 Route::get('/competition/edit/{name}/{year}', [CompetitionController::class,'edit'])->middleware('loggedInCheck')->middleware('isAdmin')->name('editcompetition');
 Route::post('/competition/update/{name}/{year}', [CompetitionController::class,'update'])->middleware('loggedInCheck')->middleware('isAdmin');
 
+Route::get('/round/edit/{id}', [RoundController::class, 'edit'])->middleware('adminLogin')->name('roundEdit');
+Route::post('/round/update/{id}', [RoundController::class, 'update'])->middleware('adminLogin');
 Route::post('/rounds/store/{c_name}/{c_year}', [RoundController::class, 'store'])->middleware('adminLogin');
 Route::get('/rounds/delete/{id}', [RoundController::class, 'destroy']);
+Route::get('/round/user/delete/{id}/{email}', [RoundController::class, 'deleteUserRoundConnection']);
 
 
