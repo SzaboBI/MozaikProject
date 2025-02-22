@@ -44,6 +44,7 @@
                     </div>
                 </div>
             </div>
+            @if($isAdmin == 1)
             <form action="/rounds/store/{{ $competition->name }}/{{ $competition->year }}" method="post">
                 @csrf
                 <div>
@@ -53,6 +54,7 @@
                         @endforeach
                     </ul>
                 </div>
+            @endif
                 <table>
                     <thead>
                         <tr>
@@ -64,22 +66,28 @@
                         @foreach($rounds as $round)
                             <tr>
                                 <td headers="roundNumber">{{ $round->roundNumber }}</td>
-                                <td headers="details">
-                                    <a href="/round/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
-                                    <a href="/rounds/delete/{{ $round->id }}">Törlés</a>
-                                </td>
+                                @if($isAdmin == 1)
+                                    <td headers="details">
+                                        <a href="/round/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
+                                        <a href="/rounds/delete/{{ $round->id }}">Törlés</a>
+                                    </td>
+                                @endif
                             </tr>
                         @endforeach
+                        @if($isAdmin == 1)
                         <tr>
                             <td headers="roundNumber" colspan="2">
                                 <label for="rNumber">Forduló sorszáma:</label>
                                 <input type="number" name="rNumber" id="rNumber" min="1">
                             </td>
                         </tr>
+                        @endif
                     </tbody>
                 </table>
+            @if($isAdmin == 1)
                 <input type="submit" value="Hozzáadás/ Mentés">
             </form>
+            @endif
         </div>
     </body>
 </html>
