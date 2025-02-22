@@ -104,11 +104,22 @@ class CompetitionController extends Controller
         $competition = Competitions::where('name',$name)
                         ->where('year',$year)
                         ->first();
-        $rounds = Rounds::where('c_name',$name)
-                        ->where('c_year',$year)
-                        ->get();
         $user = DB::table('users')->where('email', Session::get('loginEmail'))->first();
         $userIsAdmin = $user->admin;
+        $rounds = array();
+        if ($userIsAdmin == 1) {
+            $rounds = Rounds::where('c_name',$name)
+                        ->where('c_year',$year)
+                        ->get();
+        }
+        else {
+            $rounds = DB::table('rounds')
+                        ->join('versenyzoks','r_id','like','id')
+                        ->where('versenyzoks.u_email','like',$user->email)
+                        ->where('c_name',$name)
+                        ->where('c_year',$year)
+                        ->get();
+        }
         return view('competitiondetails',['competition' => $competition, 'rounds' => $rounds, 'isAdmin' => $userIsAdmin]);
     }
 
