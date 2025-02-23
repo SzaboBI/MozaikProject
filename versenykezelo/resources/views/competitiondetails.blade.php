@@ -18,44 +18,42 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @if(Session()->has('loginEmail'))
-                        <a href="{{ route('competitions') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                        <a href="{{ url('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log out</a>
-                    @endif
+        @include('parts.nav')
+        <div>
+            <div id="cd-m" class="d-table full-width">
+                @if($isAdmin == 1)
+                    <div class="d-table-row">
+                        <div class="d-table-cell">
+                            <a class="text-center btn btn-primary sed-btn" href="/competition/edit/{{ $competition->name }}/{{ $competition->year }}">Módosítás</a>
+                        </div>
+                        <div class="d-table-cell">
+                            <a class="text-center btn btn-primary sed-btn" href="/competition/delete/{{ $competition->name }}/{{ $competition->year }}">Törlés</a>
+                        </div>
+                    </div>
+                @endif
+                <div class="d-table-row">
+                    <div class="d-table-cell font-weight-bold">Verseny neve:</div>
+                    <div class="d-table-cell">{{ $competition->name }}</div>
                 </div>
-            @endif
-            
-            <div>
-                <div class="d-table full-width">
-                    @if($isAdmin == 1)
-                        <div class=""><a href="/competition/edit/{{ $competition->name }}/{{ $competition->year }}">Módosítás</a></div>
-                        <div class=""><a href="/competition/delete/{{ $competition->name }}/{{ $competition->year }}">Törlés</a></div>
-                    @endif
-                    <div class="d-table-row">
-                        <div class="d-table-cell font-weight-bold">Verseny neve:</div>
-                        <div class="d-table-cell">{{ $competition->name }}</div>
-                    </div>
-                    <div class="d-table-row">
-                        <div class="d-table-cell font-weight-bold">Verseny év:</div>
-                        <div class="d-table-cell">{{ $competition->year }}</div>
-                    </div>
+                <div class="d-table-row">
+                    <div class="d-table-cell font-weight-bold">Verseny év:</div>
+                    <div class="d-table-cell">{{ $competition->year }}</div>
                 </div>
             </div>
-            @if($isAdmin == 1)
+        </div>
+        @if($isAdmin == 1)
             <form action="/rounds/store/{{ $competition->name }}/{{ $competition->year }}" method="post">
                 @csrf
-                <div>
-                    <ul>
-                        @foreach ($errors->all() as $error)
+                @foreach ($errors->all() as $error)
+                    <div class="error-box m-x-auto">
+                        <ul>
                             <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+                        </ul>
+                    </div>
+                @endforeach
             @endif
                 <table>
+                    <caption class="font-weight-bold">Versenyhez tartozó fordulók</caption>
                     <thead>
                         <tr>
                             <th id="roundNumber">Forduló sorszáma</th>
@@ -68,8 +66,8 @@
                                 <td headers="roundNumber">{{ $round->roundNumber }}</td>
                                 @if($isAdmin == 1)
                                     <td headers="details">
-                                        <a href="/round/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
-                                        <a href="/rounds/delete/{{ $round->id }}">Törlés</a>
+                                        <a class="sed-link" href="/round/edit/{{ $round->id }}">Felhasználók hozzáadás/ eltávolítása</a>
+                                        <a class="sed-link" href="/rounds/delete/{{ $round->id }}">Törlés</a>
                                     </td>
                                 @endif
                             </tr>
@@ -77,17 +75,18 @@
                         @if($isAdmin == 1)
                         <tr>
                             <td headers="roundNumber" colspan="2">
-                                <label for="rNumber">Forduló sorszáma:</label>
-                                <input type="number" name="rNumber" id="rNumber" min="1">
+                                <div class="form-item">
+                                    <label for="rNumber">Forduló sorszáma:</label>
+                                    <input type="number" name="rNumber" id="rNumber" min="1">
+                                </div>
                             </td>
                         </tr>
                         @endif
                     </tbody>
                 </table>
             @if($isAdmin == 1)
-                <input type="submit" value="Hozzáadás/ Mentés">
+                <input type="submit" class="btn btn-primary" value="Hozzáadás">
             </form>
             @endif
-        </div>
     </body>
 </html>

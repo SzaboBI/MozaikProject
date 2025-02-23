@@ -18,23 +18,17 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @if(Session()->has('loginEmail'))
-                        <a href="{{ route('competitions') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                        <a href="{{ url('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log out</a>
-                    @endif
-                </div>
-            @endif
-                @if(Route::currentRouteName('editcompetition'))
+        @include('parts.nav')
+                
+        @if(Route::currentRouteName('editcompetition'))
                     <form action="/competition/update/{{ $competition->name }}/{{ $competition->year }}" method="post">
                 @else
                     <form action="/competition/store" method="post">
                 @endif
+                    <h2>Verseny adatainak módosítása</h2>
                     @csrf
                     @if ($errors->any())
-                        <div>
+                        <div class="error-box m-x-auto">
                             <ul>
                                 @foreach ($errors->all() as $error)
                                     <li>{{ $error }}</li>
@@ -42,43 +36,51 @@
                             </ul>
                         </div>
                     @endif
-                    <label for="name">Verseny név:</label>
+                    <div class="form-item">
+                        <label for="name">Verseny név:</label>
+                        @if(Route::currentRouteName('editcompetition'))
+                            <input type="text" name="name" id="name" value="{{ $competition->name }}">
+                        @else
+                            <input type="text" name="name" id="name">
+                        @endif
+                    </div>
+                    <div class="form-item">
+                        <label for="year">Verseny év:</label>
+                        @if(Route::currentRouteName('editcompetition'))
+                            <input type="number" name="year" id="year" value="{{ $competition->year }}">
+                        @else
+                            <input type="number" name="year" id="year">
+                        @endif
+                    </div>
+                    <div class="form-item">
+                        <label for="goodanswerpoint">Jó válaszért járó pont:</label>
+                        @if(Route::currentRouteName('editcompetition'))
+                            <input type="number" name="goodanswerpoint" id="goodanswerpoint" value="{{ $competition->pointsForGoodAnswer }}">
+                        @else
+                            <input type="number" name="goodanswerpoint" id="goodanswerpoint">
+                        @endif
+                    </div>
+                    <div class="form-item">
+                        <label for="badanswerpoint">Rossz válaszért járó pont:</label>
+                        @if(Route::currentRouteName('editcompetition'))
+                            <input type="number" name="badanswerpoint" id="badanswerpoint" value="{{ $competition->pointsForBadAnswer }}">
+                        @else
+                            <input type="number" name="badanswerpoint" id="badanswerpoint">
+                        @endif
+                    </div>
+                    <div class="form-item">
+                        <label for="emptyanswerpoint">Üres válaszért járó pont:</label>
+                        @if(Route::currentRouteName('editcompetition'))
+                            <input type="number" name="emptyanswerpoint" id="emptyanswerpoint" value="{{ $competition->pointsForEmptyAnswer }}">
+                        @else
+                            <input type="number" name="emptyanswerpoint" id="emptyanswerpoint">
+                        @endif
+                    </div>
                     @if(Route::currentRouteName('editcompetition'))
-                        <input type="text" name="name" id="name" value="{{ $competition->name }}">
+                        <input class="btn btn-primary" type="submit" value="Modosítás">
                     @else
-                        <input type="text" name="name" id="name">
+                        <input class="btn btn-primary" type="submit" value="Létrehozás">
                     @endif
-                    <br>
-                    <label for="year">Verseny év:</label>
-                    @if(Route::currentRouteName('editcompetition'))
-                        <input type="number" name="year" id="year" value="{{ $competition->year }}">
-                    @else
-                        <input type="number" name="year" id="year">
-                    @endif
-                    <br>
-                    <label for="goodanswerpoint">Jó válaszért járó pont:</label>
-                    @if(Route::currentRouteName('editcompetition'))
-                        <input type="number" name="goodanswerpoint" id="goodanswerpoint" value="{{ $competition->pointsForGoodAnswer }}">
-                    @else
-                        <input type="number" name="goodanswerpoint" id="goodanswerpoint">
-                    @endif
-                    <br>
-                    <label for="badanswerpoint">Rossz válaszért járó pont:</label>
-                    @if(Route::currentRouteName('editcompetition'))
-                        <input type="number" name="badanswerpoint" id="badanswerpoint" value="{{ $competition->pointsForBadAnswer }}">
-                    @else
-                    <input type="number" name="badanswerpoint" id="badanswerpoint">
-                    @endif
-                    <br>
-                    <label for="emptyanswerpoint">Üres válaszért járó pont:</label>
-                    @if(Route::currentRouteName('editcompetition'))
-                        <input type="number" name="emptyanswerpoint" id="emptyanswerpoint" value="{{ $competition->pointsForEmptyAnswer }}">
-                    @else
-                    <input type="number" name="emptyanswerpoint" id="emptyanswerpoint">
-                    @endif
-                    <br>
-                    <input type="submit" value="Modosítás">
                 </form>
-        </div>
     </body>
 </html>

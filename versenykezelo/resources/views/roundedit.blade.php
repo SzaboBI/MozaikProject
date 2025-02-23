@@ -18,15 +18,7 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @if(Session()->has('loginEmail'))
-                        <a href="{{ route('competitions') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                        <a href="{{ url('logout') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log out</a>
-                    @endif
-                </div>
-            @endif
+        @include('parts.nav')
             <div class="d-table full-width">
                 <div class="d-table-row">
                     <div class="d-table-cell font-weight-bold">Forduló száma:</div>
@@ -36,7 +28,7 @@
             <form action="/round/update/{{ $round->id }}" method="post" class="full-width">
                 @csrf
                 @if ($errors->any())
-                    <div>
+                    <div class="error-box m-x-auto">
                         <ul>
                             @foreach ($errors->all() as $error)
                                 <li>{{ $error }}</li>
@@ -45,7 +37,7 @@
                     </div>
                 @endif
                 <table>
-                    <caption>Fordulóhoz rendelt felhasználók</caption>
+                    <caption class="font-weight-bold">Fordulóhoz rendelt felhasználók</caption>
                     <thead>
                         <tr>
                             <th id="emailAddress">E-mail cím</th>
@@ -63,8 +55,10 @@
                         @endforeach
                         <tr>
                             <td colspan="2">
-                                <label for="email">Hozzáadandó felhasználó e-mail címe:</label>
-                                <input type="email" name="email" id="email" list="emailList">
+                                <div class="form-item">
+                                    <label class="font-weight-bold" for="email">Hozzáadandó felhasználó e-mail címe:</label>
+                                    <input type="email" name="email" id="email" list="emailList">
+                                </div>
                                 <datalist id="emailList">
                                     @foreach($users as $user)
                                         <option value="{{ $user->email }}">{{ $user->fullname }}</option>
@@ -76,6 +70,5 @@
                 </table>
                 <input type="submit" value="Hozzáadás">
             </form>
-        </div>
     </body>
 </html>

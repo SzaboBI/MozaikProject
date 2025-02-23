@@ -91,6 +91,13 @@ class RoundController extends Controller
         $round = Rounds::find($id);
         $validator = Validator::make($request->all(),[
             'email' => ['required','email',function (string $attribute, mixed $value, Closure $fail) use ($round){
+                $emailAttachedCount = DB::table('users')
+                                        ->where('email', $value)
+                                        ->count();
+                if ($emailAttachedCount == 0) {
+                    $fail('Nincs ilyen felhasználó!');
+                }
+            }, function (string $attribute, mixed $value, Closure $fail) use ($round){
                 $emailAttachedCount = DB::table('versenyzoks')
                                         ->where('r_id', $round-> id)
                                         ->where('u_email', $value)

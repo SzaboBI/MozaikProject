@@ -20,7 +20,7 @@ use App\Http\Controllers\RoundController;
 Route::get('/', [Controller::class,'index'])->middleware('notLoggedInCheck')->name('welcome');
 Route::get('/login',[Controller::class,'index']);
 Route::post('/login', [AuthController::class, 'login'])->name('login');
-Route::get('/register', [AuthController::class, 'showRegister'])->middleware('notLoggedInCheck');
+Route::get('/register', [AuthController::class, 'showRegister'])->middleware('notLoggedInCheck')->name('showRegister');
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::get('/logout', [AuthController::class, 'logout'])->name('logout');
 

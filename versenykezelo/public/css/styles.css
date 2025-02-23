@@ -1,7 +1,133 @@
+caption { 
+    display: table-caption;
+    color: #000;
+    text-align: center;
+    caption-side: top;
+}
+form> *{
+    margin-left: 3px;
+    margin-bottom: 5px;
+}
+tr> td{
+    line-height: 40px;
+}
+a.d-block, .linkdiv{
+    text-decoration: none !important;
+    background-color: #696969 !important;
+    color: #FFF !important;
+}
+
+a.d-block:hover{
+    background-color: #919191 !important;
+}
+
 .font-weight-bold{
     font-weight: bold !important; 
 }
 
 .full-width{
-    width: 100%;
+    width: 100% !important;
+}
+
+.sed-link{
+    display: inline;
+}
+
+.sed-btn{
+    margin: auto;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.full-height{
+    height: 100%;
+    position: relative;
+}
+
+.btn-primary{
+    background-color: #F00;
+    border: #F00 1px solid;
+    margin: 10px;
+}
+
+.btn-primary:hover{
+    background-color: rgb(155, 0, 0);
+    border: rgb(155, 0, 0) 1px solid;
+}
+
+.form-item> *{
+    display: inline;
+}
+
+.error-box{
+    width: 75%;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: #F00 5px solid;
+    border-radius: 25px;
+    background-color: rgb(255, 103, 103);
+}
+
+#cd-m{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#login-form, #register-form{
+    width: 75%;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#login-form> *, #register-form> *{
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.error-box> ul{
+    list-style-type: none;
+    margin: 0px;
+    padding: 7px;
+}
+
+@media only screen and (max-width: 875px){
+    .d-table{
+        display: block !important;
+        width: 100% !important;
+    }
+    .d-table-row{
+        display: block !important;
+        width: 100% !important;
+    }
+    .d-table-cell{
+        display: block !important;
+        width: 100% !important;
+    }
+}
+
+@media only screen and (max-width: 655px){
+    .sed-link{
+        display: block;
+    }
+}
+
+@media only screen and (max-width: 275px){
+    .error-box{
+        width: 100%;
+        margin: 0%;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+}
+
+@media only screen and (max-width: 375px){
+    .form-item > *{
+        display: block;
+    }
 }
